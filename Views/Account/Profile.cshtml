@@ -1,0 +1,130 @@
+﻿@model LibrarySystem.ViewModels.UserProfileViewModel
+
+@{
+    ViewData["Title"] = "Личный кабинет";
+}
+
+<link rel="stylesheet" href="~/css/profile.css"/>
+
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="profile-image">
+            <img src="~/images/user.png" alt="Аватар"/>
+        </div>
+        <div class="profile-info">
+            <h2>@User.Identity.Name</h2>
+            <p>@User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value</p>
+        </div>
+    </div>
+
+    <div class="user-stats">
+        <div class="stat-card">
+            <div class="stat-value">@Model.Rentals.Count()</div>
+<div class="stat-label">Всего аренд</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">@Model.Rentals.Count(b => b.ReturnRequestDate == null)</div>
+            <div class="stat-label">Активных аренд</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">@Model.Rentals.Count(b => b.ActualReturnDate != null)</div>
+            <div class="stat-label">Возвращено книг</div>
+        </div>
+    </div>
+
+    <div class="bookings-section">
+        <h3>Арендованные книги</h3>
+        @if (Model.Rentals.Any())
+        {
+                <table class="bookings-table">
+                    <thead>
+                        <tr>
+                            <th>Книга</th>
+                            <th>Дата бронирования</th>
+                            <th>Дата выдачи</th>
+                            <th>Дата возврата</th>
+                            <th>Статус</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var booking in Model.Rentals)
+                    {
+                            <tr>
+                                <td>
+                                    <a asp-controller="Books" asp-action="Details" asp-route-id="@booking.BookId" 
+                                       style="color: var(--primary); font-weight: 600; text-decoration: none;">
+                                    @booking.Book.Title
+                                    </a>
+                                </td>
+                                <td>@booking.RentalDate.ToShortDateString()</td>
+                                <td>@(booking.IssuedDate?.ToShortDateString() ?? "Не выдана")</td>
+                                <td>@(booking.ActualReturnDate?.ToShortDateString() ?? "—")</td>
+                            <td>
+                                            @if (booking.ActualReturnDate != null)
+                                        {
+                        <span style="color: var(--info); font-weight: 500; display: flex; align-items: center; gap: 6px;">
+                            <i class="fas fa-history"></i> Возвращена
+                        </span>
+                                        }
+                                else if (booking.ReturnRequestDate == null && booking.IssuedDate == null)
+                                {
+                            <span class="status-requested">Забронирована</span>
+                                }
+                                else if (booking.IssuedDate != null && booking.ReturnRequestDate == null)
+                                {
+                <span style="color: var(--success); font-weight: 500; display: flex; align-items: center; gap: 6px;">
+                    <i class="fas fa-check-circle"></i> Выдана
+                </span>
+                                }
+                                else if (booking.ReturnRequestDate != null && booking.IssuedDate != null)
+                                {
+                <span class="status-requested">Запрошен возврат</span>
+                                }
+                            </td>
+                                <td>
+                                @if (booking.IssuedDate != null && booking.ReturnRequestDate == null && booking.ActualReturnDate == null)
+                                {
+                                            <form asp-controller="Account" asp-action="ReturnBook" asp-route-rentalId="@booking.RentalId" method="post">
+                                                <button type="submit" class="return-button">Вернуть</button>
+                                            </form>
+                                }
+                                </td>
+                            </tr>
+                    }
+                    </tbody>
+                </table>
+        }
+        else
+        {
+                <div class="no-bookings">
+                    <i class="fas fa-book"></i>
+                    <p>У вас нет арендованных книг.</p>
+                    <a asp-controller="Home" asp-action="Index" style="color: var(--accent); margin-top: 10px; text-decoration: none; font-weight: 500;">
+                        <i class="fas fa-search"></i> Найти книги
+                    </a>
+                </div>
+        }
+    </div>
+
+    <div class="action-buttons">
+        <a asp-controller="Home" asp-action="Index" class="back-button">На главную</a>
+
+        <a asp-controller="Account" asp-action="ChangePassword" style="
+           background: linear-gradient(135deg, var(--info), #2980b9);
+           color: white;
+           padding: 12px 20px;
+           border: none;
+           border-radius: 8px;
+           text-decoration: none;
+           cursor: pointer;
+           display: inline-flex;
+           align-items: center;
+           gap: 8px;
+           font-weight: 600;
+           transition: var(--transition);
+           box-shadow: 0 4px 10px rgba(52, 152, 219, 0.2);">
+            <i class="fas fa-key"></i> Изменить пароль
+        </a>
+    </div>
+</div>

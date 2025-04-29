@@ -1,0 +1,82 @@
+﻿@model LibrarySystem.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Регистрация";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/auth.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="login-container">
+            <div class="logo-area">
+                <div class="logo">МК Библио</div>
+                <div class="tagline">Ваша цифровая библиотека</div>
+            </div>
+
+            <div class="form-container">
+                <h1>Создайте аккаунт</h1>
+                <p class="subtitle">Присоединяйтесь к нашей библиотеке</p>
+
+                <form asp-controller="Account" asp-action="Register" method="post" class="login-form">
+                    <div asp-validation-summary="ModelOnly" class="validation-summary-errors"></div>
+
+                    <div class="form-group">
+                        <label for="Username">Имя пользователя</label>
+                        <div class="input-wrapper">
+                            <input type="text" asp-for="Username" placeholder="Введите имя пользователя" />
+                            <span class="focus-border"></span>
+                        </div>
+                        <span asp-validation-for="Username" class="field-validation-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Email">Email</label>
+                        <div class="input-wrapper">
+                            <input type="email" asp-for="Email" placeholder="Введите email" />
+                            <span class="focus-border"></span>
+                        </div>
+                        <span asp-validation-for="Email" class="field-validation-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Password">Пароль</label>
+                        <div class="input-wrapper">
+                            <input type="password" asp-for="Password" placeholder="Создайте пароль" />
+                            <span class="focus-border"></span>
+                        </div>
+                        <span asp-validation-for="Password" class="field-validation-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ConfirmPassword">Подтверждение пароля</label>
+                        <div class="input-wrapper">
+                            <input type="password" asp-for="ConfirmPassword" placeholder="Повторите пароль" />
+                            <span class="focus-border"></span>
+                        </div>
+                        <span asp-validation-for="ConfirmPassword" class="field-validation-error"></span>
+                    </div>
+
+                    <button type="submit" class="btn-login">Зарегистрироваться</button>
+                </form>
+
+                <div class="form-footer">
+                    <p>Уже есть аккаунт? <a asp-controller="Account" asp-action="Login" class="register-link">Войти</a></p>
+                </div>
+            </div>
+
+            <div class="decoration register-decoration">
+                <div class="book-stack"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

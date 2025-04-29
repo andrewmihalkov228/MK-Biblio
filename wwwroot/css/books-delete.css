@@ -1,0 +1,387 @@
+﻿:root {
+    --primary: #1b3a5b;
+    --secondary: #e63946;
+    --accent: #f07b3f;
+    --light: #f8f9fa;
+    --dark: #1d3557;
+    --success: #2ecc71;
+    --danger: #e74c3c;
+    --warning: #f39c12;
+    --info: #3498db;
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --gray-400: #ced4da;
+    --gray-500: #adb5bd;
+    --gray-600: #6c757d;
+    --gray-700: #495057;
+    --gray-800: #343a40;
+    --gray-900: #212529;
+    --border-radius: 14px;
+    --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+body {
+    background-color: var(--gray-100);
+    background-image: url('../images/library-background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    min-height: 100vh;
+    font-family: 'Montserrat', -apple-system, sans-serif;
+    color: var(--gray-800);
+    margin: 0;
+    padding: 0;
+}
+
+/* Контейнер для страницы удаления */
+.delete-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 0 20px;
+    background-color: transparent;
+    animation: fadeIn 0.6s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Заголовок с предупреждением */
+.delete-container h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 30px 0;
+    padding: 25px 35px;
+    background: linear-gradient(120deg, var(--danger) 0%, #c0392b 100%);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+    .delete-container h3::before {
+        content: '\f2ed'; /* Font Awesome иконка корзины */
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+    }
+
+    .delete-container h3::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50px;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+        opacity: 0.1;
+        border-radius: 50%;
+    }
+
+/* Содержимое страницы */
+.delete-content {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 35px;
+    position: relative;
+    overflow: hidden;
+}
+
+    .delete-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background: linear-gradient(to bottom, var(--danger), #c0392b);
+        border-top-left-radius: var(--border-radius);
+        border-bottom-left-radius: var(--border-radius);
+    }
+
+/* Улучшенный стиль для разделителя */
+hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, var(--gray-300), transparent);
+    margin: 20px 0 30px 0;
+}
+
+/* Стилизация информации о книге */
+.book-info {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 15px 25px;
+    margin-bottom: 30px;
+}
+
+.book-info-label {
+    font-weight: 600;
+    color: var(--gray-700);
+    font-size: 0.95rem;
+    padding: 8px 0;
+}
+
+.book-info-value {
+    color: var(--gray-800);
+    font-size: 0.95rem;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+/* Специальное оформление для названия и автора */
+.book-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--primary);
+}
+
+.book-author {
+    font-style: italic;
+    color: var(--gray-700);
+    font-weight: 500;
+}
+
+/* Обложка книги */
+.book-cover-container {
+    grid-column: 1;
+    grid-row: 1 / span 10;
+    padding-top: 10px;
+    margin-right: 25px;
+    width: 180px;
+    height: 260px;
+}
+
+.book-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    transition: var(--transition);
+    background-color: #f8f9fa;
+}
+
+    .book-cover:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+/* Обновленная сетка для информации о книге */
+.book-info {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: repeat(auto-fill, auto);
+    gap: 15px 25px;
+    margin-bottom: 30px;
+}
+
+.book-info-label {
+    font-weight: 600;
+    color: var(--gray-700);
+    font-size: 0.95rem;
+    padding: 8px 0;
+    grid-column: 1;
+}
+
+.book-info-value {
+    color: var(--gray-800);
+    font-size: 0.95rem;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--gray-200);
+    grid-column: 2;
+}
+
+/* Специальное оформление для названия и автора */
+.book-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--primary);
+}
+
+.book-author {
+    font-style: italic;
+    color: var(--gray-700);
+    font-weight: 500;
+}
+
+/* Контейнер для кнопок */
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--gray-200);
+}
+
+/* Кнопки действий */
+.btn {
+    padding: 14px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    height: 48px;
+    line-height: 1;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, var(--danger), #c0392b);
+    color: white;
+    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.2);
+}
+
+    .btn-danger:hover {
+        background: linear-gradient(135deg, #c0392b, var(--danger));
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(231, 76, 60, 0.3);
+        color: white;
+    }
+
+    .btn-danger::before {
+        content: '\f1f8'; /* Font Awesome иконка корзины */
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+    }
+
+.btn-secondary {
+    background: linear-gradient(135deg, var(--gray-600), var(--gray-700));
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+    .btn-secondary:hover {
+        background: linear-gradient(135deg, var(--gray-700), var(--gray-800));
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        color: white;
+    }
+
+    .btn-secondary::before {
+        content: '\f053'; /* Font Awesome иконка стрелки влево */
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+    }
+
+    /* Эффект свечения для кнопок */
+    .btn-danger::after, .btn-secondary::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+        transform: translateX(-100%);
+        transition: all 0.6s ease;
+    }
+
+    .btn-danger:hover::after, .btn-secondary:hover::after {
+        transform: translateX(100%);
+    }
+
+/* Предупреждающий текст */
+.warning-text {
+    background-color: rgba(231, 76, 60, 0.1);
+    border-left: 4px solid var(--danger);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 25px 0;
+    color: #c0392b;
+    font-weight: 500;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+    .warning-text::before {
+        content: '\f071'; /* Font Awesome иконка предупреждения */
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        font-size: 1.2rem;
+    }
+
+/* Адаптивный дизайн */
+@media (max-width: 768px) {
+    .delete-container {
+        margin: 20px;
+        padding: 0 10px;
+    }
+
+        .delete-container h3 {
+            font-size: 1.2rem;
+            padding: 20px;
+        }
+
+    .delete-content {
+        padding: 20px;
+    }
+
+    .book-info {
+        grid-template-columns: 1fr;
+    }
+
+    .book-cover-container {
+        grid-column: 1;
+        grid-row: 1;
+        margin-bottom: 20px;
+        justify-content: center;
+    }
+
+    .book-info-label, .book-info-value {
+        grid-column: 1;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .btn-danger, .btn-secondary {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Анимации */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(231, 76, 60, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
+    }
+}
+
+.btn-danger:not(:hover) {
+    animation: pulse 2s infinite;
+}

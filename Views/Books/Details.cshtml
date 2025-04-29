@@ -1,0 +1,138 @@
+﻿@model LibrarySystem.Models.Book
+
+@{
+    ViewData["Title"] = "Детали книги";
+}
+
+<link rel="stylesheet" href="~/css/books.css" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+<div class="book-details-wrapper">
+    <div class="container-fluid">
+        <div class="breadcrumb-nav">
+            <a asp-controller="Home" asp-action="Index" class="breadcrumb-link">
+                <i class="fas fa-home"></i> Главная
+            </a>
+            <i class="fas fa-chevron-right breadcrumb-separator"></i>
+            <span class="breadcrumb-current">Детали книги</span>
+        </div>
+
+        <div class="book-details-container">
+            <div class="book-cover-section">
+                <div class="book-cover-wrapper">
+                    <img src="@(Model.CoverImage != null ? "data:image/jpeg;base64," + Convert.ToBase64String(Model.CoverImage) : "/images/placeholder.png")" 
+                         alt="@Model.Title" class="book-cover-details" />
+
+                    <div class="book-status">
+                        @if (Model.AvailableCopies > 0)
+                        {
+                                <div class="status-badge available">
+                                    <i class="fas fa-check-circle"></i> Доступна
+                                </div>
+                        }
+                        else
+                        {
+                                <div class="status-badge unavailable">
+                                    <i class="fas fa-times-circle"></i> Нет в наличии
+                                </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="book-copies-info">
+                    <div class="copies-item @(Model.AvailableCopies > 0 ? "available" : "unavailable")">
+                        <div class="copies-number">@Model.AvailableCopies</div>
+                        <div class="copies-label">Доступно</div>
+                    </div>
+                    <div class="copies-item total">
+                        <div class="copies-number">@Model.TotalCopies</div>
+                        <div class="copies-label">Всего</div>
+                    </div>
+                </div>
+
+                <div class="book-price-details">
+                    Стоимость аренды: <span>@Model.Price.ToString("C")</span>
+                </div>
+
+                @if (User.Identity.IsAuthenticated && Model.AvailableCopies > 0)
+                {
+                    <form asp-controller="Books" asp-action="Purchase" asp-route-id="@Model.BookId" method="post" class="reservation-form">
+                            <button class="btn-reserve" type="submit">
+                                <i class="fas fa-bookmark"></i> Арендовать
+                            </button>
+                        </form>
+                }
+            </div>
+
+            <div class="book-info-section">
+                <h1 class="book-title">@Model.Title</h1>
+                <h2 class="book-author">@Model.Author</h2>
+
+                @if (TempData["ErrorMessage"] != null)
+                {
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-circle"></i> @TempData["ErrorMessage"]
+                        </div>
+                }
+                @if (TempData["SuccessMessage"] != null)
+                {
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
+                        </div>
+                }
+
+                <div class="book-metadata">
+                    <div class="metadata-group">
+                        <div class="metadata-item">
+                            <div class="metadata-label">Жанр</div>
+                            <div class="metadata-value">@Model.Genre</div>
+                        </div>
+                        <div class="metadata-item">
+                            <div class="metadata-label">Издательство</div>
+                            <div class="metadata-value">@Model.Publisher</div>
+                        </div>
+                    </div>
+
+                    <div class="metadata-group">
+                        <div class="metadata-item">
+                            <div class="metadata-label">Год издания</div>
+                            <div class="metadata-value">@Model.PublicationYear</div>
+                        </div>
+                        <div class="metadata-item">
+                            <div class="metadata-label">ISBN</div>
+                            <div class="metadata-value">@Model.ISBN</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="book-description">
+                    <h3 class="description-title">Описание</h3>
+                    <div class="description-content">@Model.Description</div>
+                </div>
+
+                <div class="book-actions">
+                    <a asp-controller="Home" asp-action="Index" class="btn-back">
+                        <i class="fas fa-arrow-left"></i> Назад к списку
+                    </a>
+
+                    @if (User.IsInRole("admin"))
+                    {
+                            <div class="admin-actions">
+                                <a asp-controller="Books" asp-action="Edit" asp-route-id="@Model.BookId" class="btn-edit">
+                                    <i class="fas fa-edit"></i> Редактировать
+                                </a>
+                                <a asp-controller="Books" asp-action="Delete" asp-route-id="@Model.BookId" class="btn-delete">
+                                    <i class="fas fa-trash-alt"></i> Удалить
+                                </a>
+                            </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+        <link rel="stylesheet" href="~/css/books.css" />
+}

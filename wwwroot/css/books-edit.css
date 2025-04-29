@@ -1,0 +1,399 @@
+﻿:root {
+    --primary: #1b3a5b;
+    --secondary: #e63946;
+    --accent: #f07b3f;
+    --light: #f8f9fa;
+    --dark: #1d3557;
+    --success: #2ecc71;
+    --danger: #e74c3c;
+    --warning: #f39c12;
+    --info: #3498db;
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --gray-400: #ced4da;
+    --gray-500: #adb5bd;
+    --gray-600: #6c757d;
+    --gray-700: #495057;
+    --gray-800: #343a40;
+    --gray-900: #212529;
+    --border-radius: 14px;
+    --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+body {
+    background-color: var(--gray-100);
+    background-image: url('../images/library-background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    min-height: 100vh;
+    font-family: 'Montserrat', -apple-system, sans-serif;
+    color: var(--gray-800);
+}
+
+/* Контейнер формы */
+.form-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: none;
+    animation: fadeIn 0.6s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Заголовок формы */
+.form-container h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 30px 0;
+    padding: 25px 35px;
+    background: linear-gradient(120deg, var(--primary) 0%, var(--dark) 100%);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+    .form-container h1::before {
+        content: '\f044'; /* Font Awesome иконка редактирования */
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+    }
+
+    .form-container h1::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50px;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(var(--accent) 0%, transparent 70%);
+        opacity: 0.1;
+        border-radius: 50%;
+    }
+
+/* Основная форма */
+.form-container form {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 35px;
+    position: relative;
+    overflow: hidden;
+}
+
+    .form-container form::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background: linear-gradient(to bottom, var(--accent), var(--secondary));
+        border-top-left-radius: var(--border-radius);
+        border-bottom-left-radius: var(--border-radius);
+    }
+
+/* Группы полей */
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+    .form-group:last-child {
+        margin-bottom: 0;
+        margin-top: 35px;
+        padding-top: 25px;
+        border-top: 1px solid var(--gray-200);
+    }
+
+label.control-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--gray-700);
+    font-size: 0.95rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--gray-300);
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: var(--transition);
+    background-color: var(--gray-100);
+}
+
+    .form-control:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(240, 123, 63, 0.15);
+        background-color: white;
+    }
+
+textarea.form-control {
+    min-height: 150px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+input[type="file"] {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 0.95rem;
+}
+
+    /* Стилизация кнопки выбора файла */
+    input[type="file"]::file-selector-button {
+        padding: 10px 18px;
+        border-radius: 8px;
+        background-color: var(--gray-200);
+        border: none;
+        color: var(--gray-700);
+        cursor: pointer;
+        margin-right: 15px;
+        transition: var(--transition);
+        font-weight: 500;
+    }
+
+        input[type="file"]::file-selector-button:hover {
+            background-color: var(--gray-300);
+        }
+
+/* Сообщения об ошибках */
+.text-danger {
+    color: var(--danger);
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: block;
+}
+
+.validation-summary-errors {
+    background-color: rgba(231, 76, 60, 0.1);
+    border-left: 4px solid var(--danger);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+    .validation-summary-errors ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        color: var(--danger);
+    }
+
+/* Текущая обложка книги */
+.current-cover-container {
+    margin-top: 15px;
+    background-color: var(--gray-100);
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.current-cover-label {
+    font-size: 0.9rem;
+    color: var(--gray-600);
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.current-cover {
+    max-width: 150px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    object-fit: cover;
+}
+
+    .current-cover:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+/* Кнопки действий */
+.btn-primary, .btn-secondary {
+    padding: 14px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center; /* Добавлено для выравнивания содержимого */
+    gap: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    height: 48px; /* Фиксированная высота для обеих кнопок */
+    line-height: 1; /* Выравнивание текста по вертикали */
+    box-sizing: border-box; /* Учитывать padding в общей высоте */
+    vertical-align: middle; /* Вертикальное выравнивание */
+    margin: 0 10px 0 0; /* Одинаковые внешние отступы */
+}
+
+/* Дополнительно для тега <a>, который может иметь другие стили по умолчанию */
+a.btn-secondary {
+    text-decoration: none;
+    height: 48px; /* Та же высота, что и у кнопки */
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--success), #27ae60);
+    color: white;
+    box-shadow: 0 4px 10px rgba(46, 204, 113, 0.2);
+}
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #27ae60, var(--success));
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(46, 204, 113, 0.3);
+        color: white;
+    }
+
+    .btn-primary::before {
+        content: '\f0c7'; /* Font Awesome иконка сохранения */
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+    }
+
+.btn-secondary {
+    background: linear-gradient(135deg, var(--gray-600), var(--gray-700));
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+    .btn-secondary:hover {
+        background: linear-gradient(135deg, var(--gray-700), var(--gray-800));
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        color: white;
+    }
+
+    .btn-secondary::before {
+        content: '\f053'; /* Font Awesome иконка стрелки влево */
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+    }
+
+    /* Эффект свечения для кнопок */
+    .btn-primary::after, .btn-secondary::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+        transform: translateX(-100%);
+        transition: all 0.6s ease;
+    }
+
+    .btn-primary:hover::after, .btn-secondary:hover::after {
+        transform: translateX(100%);
+    }
+
+/* Адаптивный дизайн */
+@media (max-width: 768px) {
+    .form-container {
+        margin: 20px;
+    }
+
+        .form-container h1 {
+            font-size: 1.5rem;
+            padding: 20px 25px;
+        }
+
+        .form-container form {
+            padding: 25px;
+        }
+
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    .form-group:last-child {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+/* Двухколоночная форма для больших экранов */
+@media (min-width: 992px) {
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+    }
+
+        .form-grid .form-group.full-width {
+            grid-column: span 2;
+        }
+}
+
+/* Анимации */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-group {
+    animation: slideIn 0.3s ease forwards;
+}
+
+    .form-group:nth-child(2) {
+        animation-delay: 0.05s;
+    }
+
+    .form-group:nth-child(3) {
+        animation-delay: 0.1s;
+    }
+
+    .form-group:nth-child(4) {
+        animation-delay: 0.15s;
+    }
+
+    .form-group:nth-child(5) {
+        animation-delay: 0.2s;
+    }
+
+/* и так далее... */

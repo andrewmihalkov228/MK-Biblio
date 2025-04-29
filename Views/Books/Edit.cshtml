@@ -1,0 +1,118 @@
+﻿@model LibrarySystem.ViewModels.EditBookViewModel
+
+@{
+    ViewData["Title"] = "Редактирование книги";
+}
+<link rel="stylesheet" href="~/css/books-edit.css"/>
+
+<div class="form-container">
+    <h1>Редактирование книги</h1>
+
+    <form asp-controller="Books" asp-action="Edit" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="validation-summary-errors"></div>
+        <input type="hidden" asp-for="BookId" />
+        <input type="hidden" asp-for="ExistingCoverImagePath" />
+
+        <div class="form-grid">
+            <div class="form-group">
+                <label asp-for="Title" class="control-label">Название книги</label>
+                <input asp-for="Title" class="form-control" placeholder="Введите название книги" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Author" class="control-label">Автор</label>
+                <input asp-for="Author" class="form-control" placeholder="Введите имя автора" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group full-width">
+                <label asp-for="Description" class="control-label">Описание</label>
+                <textarea asp-for="Description" class="form-control" placeholder="Введите описание книги"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Genre" class="control-label">Жанр</label>
+                <input asp-for="Genre" class="form-control" placeholder="Введите жанр книги" />
+                <span asp-validation-for="Genre" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Publisher" class="control-label">Издательство</label>
+                <input asp-for="Publisher" class="form-control" placeholder="Введите название издательства" />
+                <span asp-validation-for="Publisher" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="PublicationYear" class="control-label">Год издания</label>
+                <input asp-for="PublicationYear" class="form-control" type="number" placeholder="Например: 2023" />
+                <span asp-validation-for="PublicationYear" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="ISBN" class="control-label">ISBN</label>
+                <input asp-for="ISBN" class="form-control" placeholder="Например: 978-3-16-148410-0" />
+                <span asp-validation-for="ISBN" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+<label asp-for="TotalCopies" class="control-label">Общее количество экземпляров</label>
+                <input asp-for="TotalCopies" class="form-control" type="number" min="1" placeholder="Введите общее количество" />
+                <span asp-validation-for="TotalCopies" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AvailableCopies" class="control-label">Доступных экземпляров</label>
+                <input asp-for="AvailableCopies" class="form-control" type="number" min="0" placeholder="Введите количество доступных экземпляров" />
+                <span asp-validation-for="AvailableCopies" class="text-danger"></span>
+            </div>
+
+            <div class="form-group full-width">
+                <label asp-for="CoverImageFile" class="control-label">Обложка книги</label>
+                <input asp-for="CoverImageFile" type="file" accept="image/*" />
+                <span asp-validation-for="CoverImageFile" class="text-danger"></span>
+
+                @if (Model.ExistingCoverImagePath != null)
+                {
+                        <div class="current-cover-container">
+                            <span class="current-cover-label">Текущая обложка:</span>
+                            <img src="@(Model.ExistingCoverImagePath != null ? "data:image/jpeg;base64," + Convert.ToBase64String(Model.ExistingCoverImagePath) : "/images/placeholder.png")" 
+                                 alt="Текущая обложка" class="current-cover" />
+                        </div>
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+            <a asp-controller="Books" asp-action="Details" asp-route-id="@Model.BookId" class="btn btn-secondary">Вернуться к книге</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+        <script>
+            // Добавляем небольшую анимацию для текущей обложки
+            document.addEventListener('DOMContentLoaded', function() {
+                const coverImage = document.querySelector('.current-cover');
+                if (coverImage) {
+                    coverImage.addEventListener('mouseenter', function() {
+                        this.style.cursor = 'pointer';
+                    });
+
+                    coverImage.addEventListener('click', function() {
+                        this.classList.toggle('enlarged');
+                        if (this.classList.contains('enlarged')) {
+                            this.style.maxWidth = '300px';
+                        } else {
+                            this.style.maxWidth = '150px';
+                        }
+                    });
+                }
+            });
+        </script>
+}

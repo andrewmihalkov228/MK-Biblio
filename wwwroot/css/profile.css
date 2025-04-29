@@ -1,0 +1,458 @@
+﻿:root {
+    --primary: #1b3a5b;
+    --secondary: #e63946;
+    --accent: #f07b3f;
+    --light: #f8f9fa;
+    --dark: #1d3557;
+    --success: #2ecc71;
+    --danger: #e74c3c;
+    --warning: #f39c12;
+    --info: #3498db;
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --gray-400: #ced4da;
+    --gray-500: #adb5bd;
+    --gray-600: #6c757d;
+    --gray-700: #495057;
+    --gray-800: #343a40;
+    --gray-900: #212529;
+    --border-radius: 14px;
+    --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+body {
+    background-color: var(--gray-100);
+    background-image: url('../images/library-background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    min-height: 100vh;
+    font-family: 'Montserrat', -apple-system, sans-serif;
+    color: var(--gray-800);
+}
+
+/* Основной контейнер профиля */
+.profile-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 0;
+    background-color: transparent;
+    border-radius: var(--border-radius);
+    box-shadow: none;
+    animation: fadeIn 0.6s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Шапка профиля */
+.profile-header {
+    display: flex;
+    align-items: center;
+    padding: 35px;
+    margin-bottom: 30px;
+    background: linear-gradient(120deg, var(--primary) 0%, var(--dark) 100%);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    position: relative;
+    overflow: hidden;
+    color: white;
+}
+
+    .profile-header::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50px;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(var(--accent) 0%, transparent 70%);
+        opacity: 0.1;
+        border-radius: 50%;
+    }
+
+.profile-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 25px;
+    background-color: white;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+}
+
+    .profile-image img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        transition: var(--transition);
+    }
+
+    .profile-image:hover img {
+        transform: scale(1.1);
+    }
+
+.profile-info {
+    position: relative;
+    z-index: 2;
+}
+
+    .profile-info h2 {
+        margin: 0 0 8px 0;
+        font-size: 1.8rem;
+        color: white;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+    }
+
+    .profile-info p {
+        margin: 0;
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .profile-info p::before {
+            content: '\f0e0'; /* Font Awesome иконка конверта */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            font-size: 0.9rem;
+        }
+
+/* Секция бронирований */
+.bookings-section {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 35px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+    .bookings-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background: linear-gradient(to bottom, var(--accent), var(--secondary));
+        border-top-left-radius: var(--border-radius);
+        border-bottom-left-radius: var(--border-radius);
+    }
+
+    .bookings-section h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 25px;
+        position: relative;
+        padding-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .bookings-section h3::before {
+            content: '\f02d'; /* Font Awesome иконка книги */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .bookings-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            border-radius: 3px;
+        }
+
+/* Таблица бронирований */
+.bookings-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+    .bookings-table th {
+        background: linear-gradient(to right, var(--primary), var(--dark));
+        color: white;
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 0.95rem;
+        border: none;
+    }
+
+    .bookings-table td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid var(--gray-200);
+        font-size: 0.95rem;
+        border-right: none;
+        border-left: none;
+    }
+
+    .bookings-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    .bookings-table tr {
+        transition: var(--transition);
+    }
+
+        .bookings-table tr:hover td {
+            background-color: rgba(29, 53, 87, 0.03);
+        }
+
+        /* Чередующиеся строки */
+        .bookings-table tr:nth-child(even) {
+            background-color: rgba(240, 240, 240, 0.3);
+        }
+
+/* Кнопка возврата книги */
+.return-button {
+    background: linear-gradient(135deg, var(--success), #27ae60);
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    transition: var(--transition);
+    box-shadow: 0 4px 10px rgba(46, 204, 113, 0.2);
+}
+
+    .return-button:hover {
+        background: linear-gradient(135deg, #27ae60, var(--success));
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(46, 204, 113, 0.3);
+        color: white;
+    }
+
+    .return-button::before {
+        content: '\f0e2'; /* Font Awesome иконка возврата */
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+    }
+
+/* Статус "Запрошено" */
+.status-requested {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: rgba(243, 156, 18, 0.1);
+    color: var(--warning);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+    .status-requested::before {
+        content: '\f017'; /* Font Awesome иконка часов */
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+    }
+
+/* Кнопка "На главную" */
+.back-button {
+    background: linear-gradient(135deg, var(--gray-600), var(--gray-700));
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    transition: var(--transition);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+    .back-button:hover {
+        background: linear-gradient(135deg, var(--gray-700), var(--gray-800));
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        text-decoration: none;
+        color: white;
+    }
+
+    .back-button::before {
+        content: '\f060'; /* Font Awesome иконка стрелки влево */
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+    }
+
+/* Сообщение об отсутствии бронирований */
+.no-bookings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+    color: var(--gray-600);
+    text-align: center;
+}
+
+    .no-bookings i {
+        font-size: 3rem;
+        margin-bottom: 15px;
+        color: var(--gray-400);
+    }
+
+    .no-bookings p {
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin: 0;
+    }
+
+/* Контейнер кнопок */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.user-stats {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.stat-card {
+    flex: 1;
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    transition: var(--transition);
+}
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--gray-600);
+    font-weight: 500;
+}
+
+/* Адаптивный дизайн */
+@media (max-width: 768px) {
+    .profile-container {
+        margin: 20px;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 25px;
+    }
+
+    .profile-image {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .bookings-section {
+        padding: 25px;
+    }
+
+    .bookings-table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .user-stats {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+/* Анимации */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(240, 123, 63, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(240, 123, 63, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(240, 123, 63, 0);
+    }
+}
+
+.profile-image {
+    animation: pulse 2s infinite;
+}
+
+/* Эффект свечения для кнопок */
+.return-button::after, .back-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+    transform: translateX(-100%);
+    transition: all 0.6s ease;
+}
+
+.return-button:hover::after, .back-button:hover::after {
+    transform: translateX(100%);
+}
+
+.return-button, .back-button {
+    position: relative;
+    overflow: hidden;
+}

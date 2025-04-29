@@ -1,0 +1,60 @@
+﻿@model LibrarySystem.Models.Book
+
+@{
+    ViewData["Title"] = "Удаление книги";
+}
+<link rel="stylesheet" href="~/css/books-delete.css"/>
+
+<div class="delete-container">
+    <h3>Вы уверены, что хотите удалить эту книгу?</h3>
+
+    <div class="delete-content">
+        <div class="warning-text">
+            Внимание! Это действие нельзя отменить. Удаление книги также удалит все связанные с ней бронирования.
+        </div>
+
+        <hr />
+
+        <div class="book-info">
+            <div class="book-cover-container">
+                <img src="@(Model.CoverImage != null ? "data:image/jpeg;base64," + Convert.ToBase64String(Model.CoverImage) : "/images/placeholder.png")" 
+                     alt="@Model.Title" class="book-cover" />
+            </div>
+
+            <div class="book-info-label">Название:</div>
+            <div class="book-info-value book-title">@Model.Title</div>
+
+            <div class="book-info-label">Автор:</div>
+            <div class="book-info-value book-author">@Model.Author</div>
+
+            <div class="book-info-label">Жанр:</div>
+            <div class="book-info-value">@Model.Genre</div>
+
+            <div class="book-info-label">Издательство:</div>
+            <div class="book-info-value">@Model.Publisher</div>
+
+            <div class="book-info-label">Год издания:</div>
+            <div class="book-info-value">@Model.PublicationYear</div>
+
+            <div class="book-info-label">ISBN:</div>
+            <div class="book-info-value">@Model.ISBN</div>
+
+            <div class="book-info-label">Всего экземпляров:</div>
+            <div class="book-info-value">@Model.TotalCopies</div>
+
+            <div class="book-info-label">Доступных экземпляров:</div>
+            <div class="book-info-value">@Model.AvailableCopies</div>
+
+            <div class="book-info-label">Описание:</div>
+            <div class="book-info-value">@Model.Description</div>
+        </div>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="BookId" />
+            <div class="action-buttons">
+                <input type="submit" value="Удалить книгу" class="btn btn-danger" />
+                <a asp-controller="Books" asp-action="Details" asp-route-id="@Model.BookId" class="btn btn-secondary">Вернуться к книге</a>
+            </div>
+        </form>
+    </div>
+</div>

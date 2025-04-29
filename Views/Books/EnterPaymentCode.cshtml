@@ -1,0 +1,121 @@
+﻿@model LibrarySystem.ViewModels.EnterPaymentCodeViewModel
+
+@{
+    ViewData["Title"] = "Подтверждение аренды";
+}
+
+<style>
+    .confirmation-container {
+        max-width: 450px;
+        margin: 20px auto;
+        padding: 30px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+        .confirmation-container h1 {
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            color: #333;
+        }
+
+        .confirmation-container p {
+            margin-bottom: 20px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+    .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #444;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 1.1em;
+        text-align: center;
+        letter-spacing: 2px;
+    }
+
+    .text-danger {
+        color: #dc3545;
+        font-size: 0.9em;
+        margin-top: 5px;
+        display: block;
+    }
+
+    .btn-primary, .btn-secondary {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        margin-right: 10px;
+        font-size: 1em;
+        font-weight: 500;
+    }
+
+    .btn-primary {
+        background-color: #28a745;
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background-color: #218838;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+</style>
+
+<div class="confirmation-container">
+    <h1>@ViewData["Title"]</h1>
+    <p>
+        На ваш email (<strong>@Model.UserEmail</strong>) был отправлен 6-значный код
+        для подтверждения аренды книги "<strong>@Model.BookTitle</strong>".
+        Пожалуйста, введите его ниже.
+    </p>
+
+    <form asp-controller="Books" asp-action="EnterPaymentCode" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="BookId" />
+
+        <div class="form-group">
+            <label asp-for="Code"></label>
+            <input asp-for="Code" class="form-control" autofocus maxlength="6" />
+            <span asp-validation-for="Code" class="text-danger"></span>
+        </div>
+
+        <div class="form-group" style="text-align: center; margin-top: 25px;">
+            <button type="submit" class="btn btn-primary">Подтвердить аренду</button>
+            <a asp-controller="Books" asp-action="Details" asp-route-id="@Model.BookId" class="btn btn-secondary">Отмена</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,161 @@
+﻿/* --- Payment Page Styles --- */
+
+/* Основные стили для body (если не используются из site.css или другого общего файла) */
+body {
+    font-family: 'Montserrat', sans-serif; /* Или ваш основной шрифт */
+    background-color: var(--gray-100, #F7FAFC); /* Используем переменные, если определены */
+    color: var(--text-primary, #333);
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px; /* Отступы для маленьких экранов */
+}
+
+/* Контейнер формы оплаты */
+.payment-container {
+    max-width: 450px; /* Немного шире для комфорта */
+    width: 100%; /* Занимает всю доступную ширину на маленьких экранах */
+    margin: 0 auto;
+    padding: 30px; /* Увеличим внутренние отступы */
+    background-color: #fff;
+    border: 1px solid var(--gray-300, #E2E8F0);
+    border-radius: var(--border-radius, 12px);
+    box-shadow: var(--box-shadow, 0 10px 30px rgba(0, 0, 0, 0.1));
+}
+
+    .payment-container h1 {
+        font-size: 1.8rem; /* Увеличим заголовок */
+        font-weight: 700;
+        color: var(--primary, #2D4059);
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .payment-container p {
+        font-size: 0.95rem;
+        color: var(--text-secondary, #666);
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+/* Стили для групп полей формы */
+.form-group {
+    margin-bottom: 20px; /* Увеличим отступ */
+}
+
+/* Стили для меток (label) */
+label {
+    display: block;
+    margin-bottom: 8px; /* Увеличим отступ */
+    font-weight: 600; /* Сделаем жирнее */
+    font-size: 0.9rem;
+    color: var(--gray-700, #4A5568);
+}
+
+/* Стили для полей ввода */
+input[type="text"],
+input[type="password"] /* Добавьте другие типы, если нужно */ {
+    width: 100%;
+    padding: 12px 15px; /* Увеличим padding */
+    border: 1px solid var(--gray-300, #E2E8F0);
+    border-radius: 8px; /* Скруглим */
+    box-sizing: border-box;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+        outline: none;
+        border-color: var(--primary, #2D4059);
+        box-shadow: 0 0 0 3px rgba(45, 64, 89, 0.1); /* Эффект фокуса */
+    }
+
+    input[type="text"]::placeholder,
+    input[type="password"]::placeholder {
+        color: var(--gray-400, #CBD5E0);
+    }
+
+/* Стили для сообщений об ошибках валидации */
+.text-danger,
+.field-validation-error {
+    color: var(--danger, #E53E3E);
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: block;
+}
+
+.validation-summary-errors ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 15px 0;
+}
+
+.validation-summary-errors li {
+    color: var(--danger, #E53E3E);
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+
+/* Стили для кнопок */
+.btn-primary, .btn-secondary {
+    width: 100%; /* Растянем кнопки на всю ширину */
+    padding: 14px 20px; /* Сделаем кнопки крупнее */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    transition: var(--transition, all 0.3s ease);
+    margin-top: 10px; /* Добавим отступ сверху */
+}
+
+/* Кнопка "Подтвердить аренду" */
+.btn-primary {
+    background-color: var(--success, #38A169); /* Используем цвет успеха */
+    color: white;
+}
+
+    .btn-primary:hover {
+        background-color: #2f855a; /* Более темный зеленый */
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(56, 161, 105, 0.3);
+    }
+
+/* Кнопка "Отмена" */
+.btn-secondary {
+    background-color: var(--gray-500, #A0AEC0);
+    color: white;
+}
+
+    .btn-secondary:hover {
+        background-color: var(--gray-600, #718096);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(160, 174, 192, 0.3);
+    }
+
+/* Адаптивность (если нужно) */
+@media (max-width: 480px) {
+    .payment-container {
+        padding: 20px;
+    }
+
+        .payment-container h1 {
+            font-size: 1.5rem;
+        }
+
+        .payment-container p {
+            font-size: 0.9rem;
+        }
+
+    .btn-primary, .btn-secondary {
+        font-size: 0.95rem;
+        padding: 12px 15px;
+    }
+}

@@ -1,0 +1,118 @@
+﻿@model IEnumerable<LibrarySystem.Models.Book>
+
+@{
+    ViewData["Title"] = "Главная страница";
+}
+
+<div class="main-container">
+    <header class="main-header">
+        <div class="header-content">
+            <div class="brand">
+                <img src="~/images/logo.png" alt="Логотип" class="logo-img" />
+                <div class="brand-text">
+                    <span class="brand-name">МК Библио</span>
+                    <span class="brand-tagline">Ваша цифровая библиотека</span>
+                </div>
+            </div>
+
+            <div class="user-controls">
+                @if (User.Identity.IsAuthenticated)
+                {
+                        <div class="control-group">
+                        @if (User.IsInRole("admin"))
+                        {
+                                    <a asp-controller="Admin" asp-action="Index" class="control-button admin-button">
+                                        <i class="fas fa-cog"></i>
+                                        <span>Админ панель</span>
+                                    </a>
+                        }
+                        else if (User.IsInRole("librarian"))
+                        {
+                            <a asp-controller="Admin" asp-action="Index" class="control-button admin-button">
+                                                <i class="fas fa-cog"></i>
+                                                <span>Панель библиотекаря</span>
+                                            </a>
+                        }
+                            <a asp-controller="Account" asp-action="Profile" class="control-button profile-button">
+                                <i class="fas fa-user"></i>
+                                <span>Личный кабинет</span>
+                            </a>
+                            <form asp-controller="Account" asp-action="Logout" method="post">
+                                <button type="submit" class="control-button logout-button">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Выйти</span>
+                                </button>
+                            </form>
+                        </div>
+                }
+                else
+                {
+                        <a asp-controller="Account" asp-action="Login" class="control-button login-button">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Войти</span>
+                        </a>
+                }
+            </div>
+        </div>
+    </header>
+
+    <div class="content-section">
+        <div class="search-section">
+            <h2 class="section-title">Найти книгу</h2>
+            <form asp-controller="Home" asp-action="Index" method="get" class="search-form">
+                <div class="search-container">
+                    <div class="search-field">
+                        <select name="SearchField" class="search-select">
+                            <option value="Title">Название</option>
+                            <option value="Author">Автор</option>
+                            <option value="Genre">Жанр</option>
+                            <option value="ISBN">ISBN</option>
+                            <option value="PublicationYear">Год издания</option>
+                        </select>
+                        <div class="search-input-wrapper">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" name="SearchTerm" class="search-input" placeholder="Введите текст для поиска..." />
+                        </div>
+                    </div>
+                    <button type="submit" class="search-button">Найти</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="books-section">
+            <h2 class="section-title">Все книги</h2>
+            <div class="book-collection">
+                @foreach (var book in Model)
+                {
+                        <a asp-controller="Books" asp-action="Details" asp-route-id="@book.BookId" class="book-item">
+                            <div class="book-cover-container">
+                                <img src="@(book.CoverImage != null ? "data:image/jpeg;base64," + Convert.ToBase64String(book.CoverImage) : "/images/placeholder.jpg")" 
+                                     alt="@book.Title" class="book-cover" />
+                            @if (book.AvailableCopies > 0)
+                            {
+                                        <span class="availability-badge available">
+                                            <i class="fas fa-check"></i> Доступно
+                                        </span>
+                            }
+                            else
+                            {
+                                        <span class="availability-badge unavailable">
+                                            <i class="fas fa-times"></i> Нет в наличии
+                                        </span>
+                            }
+                            </div>
+                            <div class="book-info">
+                                <h3 class="book-title">@book.Title</h3>
+                                <p class="book-author">@book.Author</p>
+                            <p class="book-price">@book.Price.ToString("C")</p>
+                            @if (book.AvailableCopies > 0)
+                            {
+                                        <p class="book-copies">В наличии: @book.AvailableCopies шт.</p>
+                            }
+                            </div>
+                        </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
