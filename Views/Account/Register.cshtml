@@ -65,6 +65,14 @@
                         <span asp-validation-for="ConfirmPassword" class="field-validation-error"></span>
                     </div>
 
+                    <div class="form-group form-check terms-check">
+                        <input type="checkbox" class="form-check-input" asp-for="AcceptTerms" required id="acceptTermsInput">
+                        <label class="form-check-label" for="acceptTermsInput">
+                            Я прочитал(а) и согласен(а) с <a asp-controller="Home" asp-action="Rules" target="_blank">Правилами пользования библиотекой</a>.
+                        </label>
+                        <span asp-validation-for="AcceptTerms" class="text-danger terms-validation"></span>
+                    </div>
+
                     <button type="submit" class="btn-login">Зарегистрироваться</button>
                 </form>
 

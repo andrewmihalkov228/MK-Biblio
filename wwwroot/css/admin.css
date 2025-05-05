@@ -594,6 +594,36 @@ input[type="file"] {
     opacity: 1;
 }
 
+.ban-button {
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex; /* Используем inline-flex для иконки и текста */
+    align-items: center; /* Выравниваем иконку и текст по центру */
+    gap: 5px; /* Отступ между иконкой и текстом */
+    font-size: 0.9em;
+    margin-right: 5px;
+    background-color: #dc3545;
+}
+
+.unban-button {
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex; /* Используем inline-flex для иконки и текста */
+    align-items: center; /* Выравниваем иконку и текст по центру */
+    gap: 5px; /* Отступ между иконкой и текстом */
+    font-size: 0.9em;
+    margin-right: 5px;
+    background-color: #17a2b8; /* Бирюзовый */
+}
+
 /* Стиль для текстового поля */
 textarea.form-control {
     line-height: 1.6;

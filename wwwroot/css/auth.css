@@ -285,6 +285,53 @@ input:focus + .focus-border {
     margin-top: 0.25rem;
 }
 
+.form-check {
+    /* Удаляем стандартные стили form-check, если они мешают */
+    padding-left: 0; /* Убираем отступ по умолчанию */
+}
+
+.terms-check {
+    display: flex; /* Используем flexbox для выравнивания */
+    align-items: flex-start; /* Выравниваем по верху, если текст в несколько строк */
+    margin-bottom: 20px;
+    text-align: left; /* Сбрасываем центрирование, если было */
+}
+
+    .terms-check .form-check-input {
+        margin-top: 0.25em; /* Небольшой отступ сверху для чекбокса, чтобы выровнять с текстом */
+        margin-right: 0.5em; /* Отступ справа от чекбокса */
+        width: auto; /* Убираем width: 100%, если он был у input */
+        /* Можно задать фиксированный размер, если нужно */
+        width: 1.1em;
+        height: 1.1em;
+        flex-shrink: 0; /* Запрещаем сжиматься */
+    }
+
+    .terms-check .form-check-label {
+        margin-bottom: 0; /* Убираем нижний отступ у label */
+        display: inline; /* Делаем label строчно-блочным */
+        font-weight: normal; /* Обычный шрифт для текста согласия */
+        line-height: 1.5; /* Выравниваем высоту строки */
+        color: #555; /* Цвет текста */
+    }
+
+        .terms-check .form-check-label a {
+            color: var(--primary); /* Цвет ссылки */
+            text-decoration: underline;
+        }
+
+            .terms-check .form-check-label a:hover {
+                color: var(--accent);
+            }
+
+
+.terms-validation {
+    display: block; /* Чтобы сообщение об ошибке было на новой строке */
+    width: 100%; /* Занимало всю ширину */
+    margin-left: 1.7em; /* Отступ слева, чтобы было под текстом, а не под чекбоксом */
+    margin-top: 5px;
+}
+
 @media (max-width: 768px) {
     .login-container {
         flex-direction: column;

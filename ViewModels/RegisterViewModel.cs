@@ -20,5 +20,8 @@ namespace LibrarySystem.ViewModels
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Пароли не совпадают.")]
         public string ConfirmPassword { get; set; }
+
+        [Range(typeof(bool), "true", "true", ErrorMessage = "Необходимо согласиться с правилами.")]
+        public bool AcceptTerms { get; set; }
     }
 }

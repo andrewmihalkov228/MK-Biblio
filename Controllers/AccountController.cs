@@ -51,6 +51,21 @@ namespace LibrarySystem.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByNameAsync(model.Username);
+
+                if (user.IsBanned)
+                {
+                    if (user.BanEndDate.HasValue && user.BanEndDate.Value < DateTime.UtcNow)
+                    {
+                        user.IsBanned = false;
+                        await _userManager.UpdateAsync(user);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Ваш аккаунт заблокирован из-за нарушения правил библиотеки.");
+                        return View(model);
+                    }
+                }
+
                 if (user != null)
                 {
                     if (!await _userManager.IsEmailConfirmedAsync(user) && await _userManager.IsInRoleAsync(user, "user"))

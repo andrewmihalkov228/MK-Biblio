@@ -48,5 +48,10 @@ namespace LibrarySystem.Controllers
             var books = await booksQuery.ToListAsync();
             return View(books);
         }
+
+        public IActionResult Rules()
+        {
+            return View();
+        }
     }
 }

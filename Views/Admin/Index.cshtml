@@ -85,8 +85,6 @@
     </div>
             }
 
-    @if (User.IsInRole("librarian"))
-    {
     <div class="bookings-list">
         <h2>Активные аренды</h2>
         @if (Model.Rentals.Any())
@@ -114,17 +112,42 @@
                             <td>@(rental.ReturnRequestDate?.ToShortDateString() ?? "—")</td>
                             <td>@(rental.DueDate?.ToShortDateString() ?? "—")</td>
                             <td>
-                                @if (rental.IssuedDate == null && rental.ActualReturnDate == null)
+                                @if (User.IsInRole("librarian"))
                                 {
-                                    <form asp-controller="Admin" asp-action="IssueBook" asp-route-rentalId="@rental.RentalId" method="post">
-                                        <button type="submit" class="return-button">Выдать</button>
-                                    </form>
+                                    @if (rental.IssuedDate == null && rental.ActualReturnDate == null)
+                                    {
+                                        <form asp-controller="Admin" asp-action="IssueBook" asp-route-rentalId="@rental.RentalId" method="post" style="display: inline;">
+                                            <button type="submit" class="return-button">Выдать</button>
+                                        </form>
+                                    }
+                                    else if (rental.IssuedDate != null && rental.ActualReturnDate == null && rental.ReturnRequestDate != null)
+                                    {
+                                        <form asp-controller="Admin" asp-action="CloseBooking" asp-route-rentalId="@rental.RentalId" method="post" style="display: inline;">
+                                            <button type="submit" class="return-button">Закрыть аренду</button>
+                                        </form>
+                                    }
                                 }
-                                else if (rental.IssuedDate != null && rental.ActualReturnDate == null && rental.ReturnRequestDate != null)
+                                else if (User.IsInRole("admin"))
                                 {
-                                    <form asp-controller="Admin" asp-action="CloseBooking" asp-route-rentalId="@rental.RentalId" method="post">
-                                        <button type="submit" class="return-button">Закрыть бронь</button>
-                                    </form>
+                                    bool isOverdue = rental.DueDate.HasValue && rental.DueDate.Value.AddDays(7) < DateTime.Now && rental.ActualReturnDate == null;
+
+                                    @if (!rental.User.IsBanned)
+                                    {
+                                        <form asp-controller="Admin" asp-action="BanUser" asp-route-userId="@rental.UserId" method="post" onsubmit="return confirm('Вы уверены, что хотите забанить этого пользователя?');" style="display: inline;">
+                                            <button type="submit" class="ban-button" title="@(isOverdue ? $"Просрочено с {rental.DueDate.Value.ToShortDateString()}" : "Забанить пользователя")">
+                                                <i class="fas fa-ban"></i>
+                                                @(isOverdue ? "Забанить (Просрочка!)" : "Забанить")
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form asp-controller="Admin" asp-action="UnbanUser" asp-route-userId="@rental.UserId" method="post" onsubmit="return confirm('Вы уверены, что хотите разбанить этого пользователя?');" style="display: inline;">
+                                            <button type="submit" class="unban-button" title="Разбанить пользователя">
+                                                <i class="fas fa-check"></i> Разбанить
+                                            </button>
+                                        </form>
+                                    }
                                 }
                             </td>
                         </tr>
@@ -140,5 +163,4 @@
             </div>
         }
     </div>
-    }
 </div>
